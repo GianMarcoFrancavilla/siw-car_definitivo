@@ -174,11 +174,11 @@ header {
 }
 
 .logo {
-    width: 30%;
+    width: 80%;
     position: relative;
     z-index: 2;
-    margin-top: 18px;
-    margin-left: -60px;
+    margin-top: 25px;
+    margin-left: -200px;
 }
 
 .user-info a {
@@ -200,7 +200,13 @@ header {
 
 .admin-page {
     background-image: url("/images/sfondo admin siw-car.png");
-    /* Altri stili specifici per le pagine dell'admin */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    margin: 0;
+    padding: 0;
+    background-attachment: fixed;
+    font-family: Arial, sans-serif;
 }
 
 /* Aggiungi questo al CSS principale */
