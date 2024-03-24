@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>
+		SiwCar - Gestione Macchine
+	</title>
+	<link rel="stylesheet" href="/css/stile.css" />
+</head>
+
+<body class="admin-page">
+	<div class="background-container"></div>
+    <header>
+        <img src="/images/siw-car-logo.png" class="logo" />
+        <div class="user-info" th:if="${userDetails}">
+            <span th:text="'user :' + ' ' + ${userDetails.username}"></span>
+            <a href="/logout">Logout</a>
+        </div>
+        <div class="user-info" th:unless="${userDetails}">
+            <a href="/login">Login</a>
+        </div>
+    </header>
+	<h1>Gestione Macchine</h1>
+	<h4>attraverso questa funzione puoi inserire all'interno del database una nuova automobile, fornendo tutti i dati richiesti dal sistema</h4>
+	<div>
+		<a href="/admin/formNewCar">Inserisci i dati di un'auto</a>
+	</div>
+		<h4>attraverso questa funzione puoi assegnare le auto vendute ai rispettivi acquirenti, consentendo loro di poter effettuare recensioni</h4>
+	
+	<div>
+		<a href="/admin/formUpdateCars">Gestisci le auto</a>
+	</div>
+</body>
+
+</html>

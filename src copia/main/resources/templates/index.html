@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>SiwCar - Homepage</title>
+    <link rel="stylesheet" href="/css/stile.css" />
+    <style>
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 50px; /* Aggiunge spazio sopra il contenuto */
+        }
+
+        .content {
+            width: 800px;
+            height: 200px;
+            margin: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 24px;
+            text-align: center;
+            border-radius: 15px; /* Aggiunge bordi arrotondati */
+            overflow: hidden; /* Nasconde eventuali overflow di contenuti arrotondati */
+            transition: transform 0.2s; /* Aggiunge una transizione all'ingrandimento */
+            cursor: pointer; /* Cambia il cursore al passaggio del mouse */
+        }
+
+        .content:hover {
+            transform: scale(1.05); /* Ingrandisce il rettangolo al passaggio del mouse */
+        }
+
+       .rectangleNotSold {
+            background-color: rgba(76, 175, 80, 0.5); /* Verde con trasparenza */
+           border-style:solid;
+           border-color: black;
+        }
+
+        .rectangleSold {
+            background-color: rgba(244, 67, 54, 0.5); /* Rosso con trasparenza */
+                       border-style:solid;
+           border-color: black;
+        }
+    </style>
+</head>
+
+<body>
+	 <div class="background-container"></div>
+    <div class="overlay"></div>
+    <header>
+  
+        <div class="user-info">
+            <span th:if="${userDetails}" th:text="'user :' + ' ' + ${userDetails.username}"></span>
+            <a href="/formLogin" th:unless="${userDetails}">Login</a>
+            <a href="/logout" th:if="${userDetails}">Logout</a>
+        </div>
+    </header>
+
+        <div class="container">
+        <div class="content rectangleNotSold" onclick="window.location.href = '/carsForSale';">
+            <h1>Auto in Vendita</h1>
+        </div>
+
+        <div class="content rectangleSold" onclick="window.location.href = '/carsNotForSale';">
+            <h1>Auto Vendute</h1>
+        </div>
+    </div>
+</body>
+
+</html>

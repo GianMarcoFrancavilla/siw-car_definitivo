@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Nuova auto</title>
+    <link rel="stylesheet" href="/css/stile.css" />
+</head>
+
+<body class="admin-page">
+    <div class="background-container"></div>
+    <header>
+        <img src="/images/siw-car-logo.png" class="logo" />
+        <div class="user-info" th:if="${userDetails}">
+            <span th:text="'user :' + ' ' + ${userDetails.username}"></span>
+            <a href="/logout">Logout</a>
+        </div>
+        <div class="user-info" th:unless="${userDetails}">
+            <a href="/login">Login</a>
+        </div>
+    </header>
+
+    <h1>Aggiungi un'auto</h1>
+   <form th:action="@{/car}" method="POST" th:object="${car}" enctype="multipart/form-data">
+        <div th:if="${#fields.hasGlobalErrors()}">
+            <p th:each="err : ${#fields.globalErrors()}" th:text="${err}">...</p>
+        </div>
+        <div>
+            <label for="brand">Marca:</label>
+            <select id="brandSelected" name="brand" th:field="${car.brand}">
+                <option th:each="brand : ${brands}" th:value="${brand.id}" th:text="${brand.name}"></option>
+            </select>
+            <span th:if="${#fields.hasErrors('brand')}" th:errors="*{brand}"></span>
+        </div>
+
+        <div>
+            <label for="model">Modello:</label>
+            <select id="modelSelected" name="model" th:field="${car.model}">
+                <option th:each="model : ${models}" th:value="${model.id}" th:text="${model.name}"></option>
+            </select>
+            <span th:if="${#fields.hasErrors('model')}" th:errors="*{model}"></span>
+        </div>
+
+        <div>
+            <label for="licensePlate">Targa:</label>
+            <input type="text" id="licensePlate" name="licensePlate" th:field="${car.licensePlate}" pattern="[A-Za-z]{2}[0-9]{3}[A-Za-z]{2}" required />
+<span th:if="${#fields.hasErrors('licensePlate')}" th:errors="*{licensePlate}" th:classappend="${#fields.hasErrors('licensePlate')} ? 'errore-formato-targa' : ''"></span>
+        </div>
+
+        <div>
+            <label for="color">Colore:</label>
+            <select id="color" name="color" th:field="${car.color}">
+                <option value="Bianco">Bianco</option>
+                <option value="Nero">Nero</option>
+                <option value="Rosso">Rosso</option>
+                <option value="Blu">Blu</option>
+                <option value="Verde">Verde</option>
+                <option value="Viola">Viola</option>
+                <option value="Arancione">Arancione</option>
+                <option value="Argento">Argento</option>
+                <!-- Aggiungi altri colori desiderati -->
+            </select>
+            <span th:if="${#fields.hasErrors('color')}" th:errors="*{color}"></span>
+        </div>
+
+        <div>
+            <label for="yearOfProduction">Anno di produzione:</label>
+            <select id="yearOfProduction" name="yearOfProduction" th:field="${car.yearOfProduction}">
+                <option th:each="year : ${#numbers.sequence(2023, 1920)}" th:value="${year}" th:text="${year}">2023</option>
+            </select>
+            <span th:if="${#fields.hasErrors('yearOfProduction')}" th:errors="*{yearOfProduction}"></span>
+        </div>
+
+        <div>
+            <label for="mileage">Chilometraggio:</label>
+            <input type="number" id="mileage" name="mileage" th:field="${car.mileage}" />
+            <span th:if="${#fields.hasErrors('mileage')}" th:errors="*{mileage}"></span>
+        </div>
+
+        <div>
+            <label for="price">Prezzo:</label>
+            <input type="number" id="price" name="price" th:field="${car.price}" />
+            <span th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></span>
+        </div>
+        
+<div>
+    <label for="uploadedImages">Carica immagini:</label>
+    <input type="file" id="uploadedImages" name="uploadedImages" multiple />
+</div>
+
+        <div>
+            <button type="submit">Conferma</button>
+        </div>
+    </form>
+</body>
+
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Auto Filtrate</title>
+    <link rel="stylesheet" href="/css/stile.css" />
+</head>
+
+<body>
+	<div class="background-container"></div>
+    <header>
+        <img src="/images/siw-car-logo.png" class="logo" />
+        <div class="user-info" th:if="${userDetails}">
+            <span th:text="'user :' + ' ' + ${userDetails.username}"></span>
+            <a href="/logout">Logout</a>
+        </div>
+        <div class="user-info" th:unless="${userDetails}">
+            <a href="/login">Login</a>
+        </div>
+    </header>
+    <h1>Auto Filtrate</h1>
+
+    <!-- Aggiungi il codice per visualizzare le auto filtrate -->
+    <ul>
+        <li th:each="car : ${filteredCars}">
+            <a th:href="@{'/car/' + ${car.id}}" th:text="' Marca:' + ' ' + ${car.brand.name} + ' ' + ' Modello:' + ' ' + ${car.model.name} + ' ' + ' Targa:' + ' ' + ${car.licensePlate}">Up! (2000)</a>
+        </li>
+    </ul>
+    <div th:if="${filteredCars == null or #lists.isEmpty(filteredCars)}">Nessuna macchina trovata</div>
+
+</body>
+
+</html>
+
+

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>SiwMovie - Login</title>
+    <link rel="stylesheet" href="/css/stile.css" />
+</head>
+
+<body>
+ <div class="background-container"></div>
+    <div class="overlay"></div>
+    <div class="form-login">
+        <form th:action="@{/login}" method="POST">
+            <div>
+                <span>Username:</span>
+                <span><input name="username" type="text" required /></span>
+            </div>
+            <div>
+                <span>Password:</span>
+                <span><input name="password" type="password" required /></span>
+            </div>
+            <div>
+                <span th:if="${param.error != null}">Username o password errati</span>
+            </div>
+            <div class="login-button">
+                <span><button type="submit">Login</button></span>
+            </div>
+            <div class="register-button">
+                <button type="button" onclick="window.location.href='/register'">Registrati</button>
+            </div>
+        </form>
+    </div>
+</body>
+
+</html>

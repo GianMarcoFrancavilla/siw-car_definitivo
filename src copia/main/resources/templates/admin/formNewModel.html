@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Nuovo Modello</title>
+    <link rel="stylesheet" href="/css/stile.css" />
+</head>
+
+<body class="admin-page">
+    <div class="background-container"></div>
+    <header>
+        <img src="/images/siw-car-logo.png" class="logo" />
+        <div class="user-info" th:if="${userDetails}">
+            <span th:text="'user :' + ' ' + ${userDetails.username}"></span>
+            <a href="/logout">Logout</a>
+        </div>
+        <div class="user-info" th:unless="${userDetails}">
+            <a href="/login">Login</a>
+        </div>
+    </header>
+
+    <h1>Nuovo Modello</h1>
+    <form th:action="@{/model}" method="POST" th:object="${model}">
+        <div th:if="${#fields.hasGlobalErrors()}">
+            <p th:each="err : ${#fields.globalErrors()}" th:text="${err}">...</p>
+        </div>
+        <div>
+            <label for="name" style="margin-bottom: 10px;">Nome Modello:</label>
+            <input type="text" id="name" name="name" th:field="${model.name}" />
+            <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+        </div>
+
+        <div>
+            <label for="brand" style="white-space: nowrap;">Seleziona il Marchio:</label>
+            <select id="brand" name="brand" th:field="${model.brand}" style="margin-left: 25px;">
+                <option th:each="brand : ${brands}" th:value="${brand.id}" th:text="${brand.name}"></option>
+            </select>
+            <span th:if="${#fields.hasErrors('brand')}" th:errors="*{brand}"></span>
+        </div>
+
+        <div>
+            <button type="submit">Conferma</button>
+        </div>
+    </form>
+</body>
+
+</html>

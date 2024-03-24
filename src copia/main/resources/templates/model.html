@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Modello</title>
+    <link rel="stylesheet" href="/css/stile.css" />
+</head>
+
+<body>
+	<div class="background-container"></div>
+    <header>
+        <img src="/images/siw-car-logo.png" class="logo" />
+        <div class="user-info" th:if="${userDetails}">
+            <span th:text="'user :' + ' ' + ${userDetails.username}"></span>
+            <a href="/logout">Logout</a>
+        </div>
+        <div class="user-info" th:unless="${userDetails}">
+            <a href="/login">Login</a>
+        </div>
+    </header>
+    <h1>Dettagli Modello</h1>
+    <div th:if="${model}">
+        <p>Nome del Modello: <span th:text="${model.name}"></span></p>
+        <p>Marca: <span th:text="${model.brand.name}"></span></p>
+    </div>
+    <div th:unless="${model}">Il modello non esiste</div>
+</body>
+</html>

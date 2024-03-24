@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auto vendute</title>
+    <link rel="stylesheet" href="/css/stile.css" />
+    <style>
+        /* Aggiungi stili per la finestra di dialogo del filtro */
+
+
+        /* Riduci lo spazio tra il punto della lista e il testo */
+        ul li {
+            margin-bottom: 0px;  /* Modifica questo valore a seconda delle tue esigenze */
+        }
+    </style>
+</head>
+<body>
+	<div class="background-container"></div>
+    <header>
+        <img src="/images/siw-car-logo.png" class="logo" />
+        <div class="user-info" th:if="${userDetails}">
+            <span th:text="'user :' + ' ' + ${userDetails.username}"></span>
+            <a href="/logout">Logout</a>
+        </div>
+        <div class="user-info" th:unless="${userDetails}">
+            <a href="/login">Login</a>
+        </div>
+    </header>
+    <h1>Auto</h1>
+
+    <!-- Aggiungi il pulsante Filtra -->
+    <a href="/filterPage">Filtra</a>
+
+    <div th:if="${cars == null or cars.isEmpty()}"> <p>Non ci sono auto vendute</p></div>
+    <ul>
+        <li th:each="car : ${cars}" id="carItem">
+                <a th:href="@{'/car/' + ${car.id}}"
+                    th:text="' Marca: ' + ${car.brand.name} + '  Modello: ' + ${car.model.name} + '  Targa: ' + ${car.licensePlate}">Up! (2000)</a>
+<th:block th:if="${currentUser != null and currentUser.isPresent() and currentUser.get().user.id == car.owner.id}">
+      <th:block th:if="${car.review == null}">
+                <a th:href="@{'/writeReview?carId=' + ${car.id}}">Scrivi recensione</a>
+            </th:block>
+
+            <th:block th:if="${car.review != null}">
+                <!-- Aggiungi link per eliminare e modificare solo se c'è una recensione -->
+               <a th:href="@{'/deleteReview/' + ${car.review.id}}">Elimina recensione</a>
+                <a th:href="@{'/editReview/' + ${car.review.id}}">Modifica recensione</a>
+            </th:block>
+</th:block>
+        </li>
+    </ul>
+</body>
+</html>

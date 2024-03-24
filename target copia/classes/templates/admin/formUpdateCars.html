@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Auto</title>
+    <link rel="stylesheet" href="/css/stile.css" />
+</head>
+
+<body class="admin-page">
+	<div class="background-container"></div>
+    <header>
+        <img src="/images/siw-car-logo.png" class="logo" />
+        <div class="user-info" th:if="${userDetails}">
+            <span th:text="'user :' + ' ' + ${userDetails.username}"></span>
+            <a href="/logout">Logout</a>
+        </div>
+        <div class="user-info" th:unless="${userDetails}">
+            <a href="/login">Login</a>
+        </div>
+    </header>
+    <h1>Auto</h1>
+    <div th:if="${cars == null or cars.isEmpty()}">Non ci sono auto nel sistema</div>
+    <ul>
+        <li th:each="car : ${cars}">
+            <span th:href="@{'/car' + '/' + ${car.id}}" th:text="${car.brand.name} + ' ' + ${car.model.name} + ' ' + ${car.licensePlate}"></span>
+
+            <!-- Vendi (Sell) form -->
+           <form method="post" th:object="${car}" th:action="@{/admin/vendi-auto/{id}(id=${car.id})}">
+    <!-- Altri campi del form -->
+
+    <!-- Campo di selezione per l'utente acquirente -->
+<div class="form-group">
+        <label for="buyer">Seleziona l'acquirente:</label>
+        <select class="form-control" id="buyer" name="buyer">
+            <option th:each="user : ${users}" th:value="${user.id}" th:text="${user.name + ' ' + user.surname}"></option>
+        </select>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Vendi</button>
+</form>
+            <!-- Elimina (Delete) form -->
+            <form th:action="@{'/admin/elimina-auto/' + ${car.id}}" method="post">
+                <button type="submit">Elimina</button>
+            </form>
+
+        </li>
+    </ul>
+</body>
+
+</html>

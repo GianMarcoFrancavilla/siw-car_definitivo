@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>SiwMovie - Homepage</title>
+    <link rel="stylesheet" href="/css/stile.css" />
+
+</head>
+
+<body class="admin-page">
+    <div class="background-container"></div>
+    <div class="overlay"></div>
+    <header>
+        <img src="/images/siw-car-logo.png" class="logo" />
+        <div class="user-info" th:if="${userDetails}">
+            <span th:text="'user :' + ' ' + ${userDetails.username}"></span>
+            <a href="/logout">Logout</a>
+        </div>
+        <div class="user-info" th:unless="${userDetails}">
+            <a href="/formLogin">Login</a>
+        </div>
+    </header>
+    <div class="archive-consultation">
+        <h1>Consulta l'archivio</h1>
+        <h4>Attraverso questa funzione puoi visualizzare l'elenco delle auto attualmente in vendita</h4>
+        <div>
+            <a href="/carsForSale">Elenco auto in vendita</a>
+        </div>
+        <div>
+            <h4>Attraverso questa funzione puoi visualizzare l'elenco delle auto vendute e eventualmente eliminare recensioni indesiderate</h4>
+            <a href="/admin/carsNotForSaleAdmin">Elenco auto vendute</a>
+        </div>
+    </div>
+    <div class="admin-operations">
+        <h1>Operazioni per amministratore</h1>
+        <h4>Di seguito sono presenti le funzioni alle quali esclusivamente l'admin puo' accedere</h4>
+        <div>
+            <a href="/admin/indexCar">Operazioni sulle Auto</a>
+        </div>
+        <div>
+            <a href="/admin/indexBrand">Operazioni sulle Marche</a>
+        </div>
+        <div>
+            <a href="/admin/indexModel">Operazioni sui Modelli</a>
+        </div>
+    </div>
+</body>
+
+</html>

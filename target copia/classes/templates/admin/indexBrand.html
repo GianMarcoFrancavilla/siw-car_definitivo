@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>
+			SiwCar - Gestione Brand
+		</title>
+		<link rel="stylesheet" href="/css/stile.css" />
+	</head>
+<body class="admin-page">
+	<div class="background-container"></div>
+    <header>
+        <img src="/images/siw-car-logo.png" class="logo" />
+        <div class="user-info" th:if="${userDetails}">
+            <span th:text="'user :' + ' ' + ${userDetails.username}"></span>
+            <a href="/logout">Logout</a>
+        </div>
+        <div class="user-info" th:unless="${userDetails}">
+            <a href="/login">Login</a>
+        </div>
+    </header>
+		<h1>Gestione Brand</h1>
+		<div>
+			<h4>attraverso questa funzione puoi creare un nuovo brand</h4>
+
+			<a href="/admin/formNewBrand">Crea un brand</a>
+		</div>
+		<div>
+			<h4>attraverso questa funzione puoi eliminare un brand esistente</h4>
+			<a href="/admin/formUpdateBrands">Modifica brand esistente</a>
+		</div>
+	</body>
+</html>

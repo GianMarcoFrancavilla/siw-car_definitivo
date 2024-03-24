@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Cerca Film</title>
+	<link rel="stylesheet" href="/css/stile.css" />
+</head>
+
+<body>
+	<div class="background-container"></div>
+    <header>
+        <img src="/images/siw-car-logo.png" class="logo" />
+        <div class="user-info" th:if="${userDetails}">
+            <span th:text="'user :' + ' ' + ${userDetails.username}"></span>
+            <a href="/logout">Logout</a>
+        </div>
+        <div class="user-info" th:unless="${userDetails}">
+            <a href="/login">Login</a>
+        </div>
+    </header>
+	<h1>Cerca film per anno</h1>
+	<form th:action="@{/searchMovies}" method="post">
+		<div>Anno: <input type="text" th:value="${year}" name="year" />
+		</div>
+		<div><input type="submit" /></div>
+	</form>
+</body>
+
+</html>

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>SiwMovie - Registrazione</title>
+    <link rel="stylesheet" href="/css/stile.css" />
+    <style>
+        .background-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1; /* Assicura che lo sfondo sia dietro la form */
+            background-image: url('/images/background-image.jpg'); /* Immagine di sfondo */
+            background-size: cover;
+            filter: blur(5px); /* Applica un effetto di sfocatura */
+        }
+
+        .form-register {
+            background-color: rgba(170, 181, 193, 0.7);
+            border-style: solid;
+            border-color: black;
+            border-radius: 20px; /* Bordo stondato */
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Ombra */
+            max-width: 400px; /* Larghezza massima della form */
+            width: 100%; /* Imposta la larghezza al 100% */
+            margin: auto; /* Centra orizzontalmente */
+            position: fixed; /* Posizionamento fisso per centrare verticalmente */
+            top: 50%; /* Metà della pagina in altezza */
+            left: 50%; /* Metà della pagina in larghezza */
+            transform: translate(-50%, -50%); /* Traslazione di -50% sia in orizzontale che in verticale */
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        form>div {
+            margin-bottom: 10px;
+        }
+
+        form>div>label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"],
+        input[type="password"],
+        button {
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        button[type="submit"] {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #2980b9;
+        }
+    </style>
+</head>
+
+<body>
+     <div class="background-container"></div>
+    <div class="overlay"></div>
+    <div class="form-register">
+        <form th:action="@{/register}" method="POST">
+            <div>
+                <label>Nome:</label>
+                <span><input type="text" placeholder="Nome" required th:field="${user.name}" /></span>
+                <span th:if="${#fields.hasErrors('user.name')}" th:errors="${user.name}" th:style="'color:red'"></span>
+            </div>
+            <div>
+                <label>Cognome:</label>
+                <span><input type="text" placeholder="Cognome" required th:field="${user.surname}" /></span>
+                <span th:if="${#fields.hasErrors('user.surname')}" th:errors="${user.surname}" th:style="'color:red'"></span>
+            </div>
+            <div>
+                <label>Email:</label>
+                <span><input type="text" placeholder="Email" required th:field="${user.email}" /></span>
+                <span th:if="${#fields.hasErrors('user.email')}" th:errors="${user.email}" th:style="'color:red'"></span>
+            </div>
+            <div>
+                <label>Username:</label>
+                <span><input type="text" placeholder="Username" required th:field="${credentials.username}" /></span>
+                <span th:if="${#fields.hasErrors('credentials.username')}" th:errors="${credentials.username}" th:style="'color:red'"></span>
+            </div>
+            <div>
+                <label>Password:</label>
+                <span><input type="password" placeholder="Password" required th:field="${credentials.password}" /></span>
+                <span th:if="${#fields.hasErrors('credentials.password')}" th:errors="${credentials.password}" th:style="'color:red'"></span>
+            </div>
+            <div>
+                <button type="submit">Registra</button>
+            </div>
+        </form>
+    </div>
+</body>
+
+</html>
