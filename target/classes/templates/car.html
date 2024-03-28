@@ -4,15 +4,19 @@
     <title>Macchima</title>
     
     <link rel="stylesheet" href="/css/stile.css" />
-  <meta charset="UTF-8">
+    <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
   </head>
   <body>
-    <header>
+	  <div class="background-container"></div>
+	<div class="overlay"></div>
+<header>
+        <a href="/">
+            <img src="/images/siw-car-logo.png" class="logo" />
+        </a>
         <div class="user-info" th:if="${userDetails}">
-            <span th:text="${userDetails.username}"></span>
+            <span th:text="'user :' + ' ' + ${userDetails.username}"></span>
             <a href="/logout">Logout</a>
         </div>
         <div class="user-info" th:unless="${userDetails}">
@@ -20,49 +24,45 @@
         </div>
     </header>
 
-    <div>
-      <a href="/"><img src="/images/logo-siw.png" width="50%" class="logo" /></a>
-    </div>
-
     <h1>Dettagli Macchina</h1>
 
-    <div th:if="${car}">
-      <span th:text="'Brand: ' + ${car.brand.name}"></span>
-      <br/>
-      <span th:text="'Modello: ' + ${car.model.name}"></span>
-      <br/>
-      <span th:text="'Anno di produzione: ' + ${car.yearOfProduction}"></span>
-      <br/>
-      <span th:text="'Chilometraggio: ' + ${car.mileage}"></span>
-      <br/>
-      <span th:text="'Colore: ' + ${car.color}"></span>
-      <br/>
-      <span th:text="'Targa: ' + ${car.licensePlate}"></span>
-      <br/>
-    <span th:text="'Prezzo: ' + ${car.price} + ' ' +'euro'"></span>
+    <div class="spaced-lines" th:if="${car}">
+        <span th:text="'Brand: ' + ${car.brand.name}"></span>
+        <br/>
+        <span th:text="'Modello: ' + ${car.model.name}"></span>
+        <br/>
+        <span th:text="'Anno di produzione: ' + ${car.yearOfProduction}"></span>
+        <br/>
+        <span th:text="'Chilometraggio: ' + ${car.mileage}"></span>
+        <br/>
+        <span th:text="'Colore: ' + ${car.color}"></span>
+        <br/>
+        <span th:text="'Targa: ' + ${car.licensePlate.toUpperCase()}"></span>
+        <br/>
+        <span th:text="'Prezzo: ' + ${car.price} + ' ' +'euro'"></span>
+        
+        <!-- Visualizza le immagini caricate -->
+        <div th:each="base64String : ${base64Strings}">
+            <img th:src="'data:image/jpeg;base64,' + ${base64String}" alt="Car Image" style="max-width: 30%; height: auto;" />
+        </div>
 
-    
-<!-- Visualizza le immagini caricate -->
-
-<div th:each="base64String : ${base64Strings}">
-    <img th:src="'data:image/jpeg;base64,' + ${base64String}" alt="Car Image" style="max-width: 30%; height: auto;" />
-</div>
-
-    <h2>Recensione dell' acquirente</h2>
-   <div th:if="${car.review != null}">
-    <div>
-        <p th:if="${car.review.user != null}" th:text="'Autore: ' + ${car.review.user.name} + ' ' + ${car.review.user.surname != null ? car.review.user.surname.substring(0, 1) + '.' : ''}"></p>
-        <p th:text="'Titolo: ' + ${car.review.title}"></p>
-        <p th:text="'Testo: ' + ${car.review.text}"></p>
-        <p th:text="'Valutazione: ' + ${car.review.rating}"></p>
-        <!-- Altri dettagli della recensione se necessario -->
+      
+        <div th:if="${car.owner != null}">
+			  <h2>Recensione dell'acquirente</h2>
+            <div th:if="${car.review != null}">
+                <div>
+                    <p th:if="${car.review.user != null}" th:text="'Autore: ' + ${car.review.user.name} + ' ' + ${car.review.user.surname != null ? car.review.user.surname.substring(0, 1) + '.' : ''}"></p>
+                    <p th:text="'Titolo: ' + ${car.review.title}"></p>
+                    <p th:text="'Testo: ' + ${car.review.text}"></p>
+                    <p th:text="'Valutazione: ' + ${car.review.rating}"></p>
+                    <!-- Altri dettagli della recensione se necessario -->
+                </div>
+            </div>
+            <div th:unless="${car.review != null}">
+                <p>Nessuna recensione disponibile</p>
+            </div>
+        </div>
     </div>
-</div>
-<div th:unless="${car.review != null}">
-    <p>Nessuna recensione disponibile</p>
-</div>
-
-</div>
     <div th:unless="${car}">Non esiste</div>
   </body>
 </html>

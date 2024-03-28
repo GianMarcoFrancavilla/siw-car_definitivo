@@ -7,19 +7,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Auto</title>
     <link rel="stylesheet" href="/css/stile.css" />
-    <style>
-        /* Aggiungi stili per la finestra di dialogo del filtro */
-
-        /* Riduci lo spazio tra il punto della lista e il testo */
-        ul li {
-            margin-bottom: 20px;  /* Modifica questo valore a seconda delle tue esigenze */
-        }
-    </style>
-</head>
 
 <body>
-	<div class="background-container"></div>
-	<div class="overlay"></div>
+    <div class="background-container"></div>
+    <div class="overlay"></div>
     <header>
         <a href="/">
             <img src="/images/siw-car-logo.png" class="logo" />
@@ -37,13 +28,15 @@
     <!-- Aggiungi il pulsante Filtra -->
     <a href="/filterPage">Filtra</a>
 
-    <div th:if="${cars == null or cars.isEmpty()}">Non ci sono auto in vendita</div>
-    <ul>
-        <li th:each="car : ${cars}" id="carItem">
-            <a th:href="@{'/car/' + ${car.id}}"
-                th:text="' Marca: ' + ${car.brand.name} + '  Modello: ' + ${car.model.name} + '  Targa: ' + ${car.licensePlate}">Up! (2000)</a>
-        </li>
-    </ul>
+<ul class="car-list">
+    <li th:each="car : ${cars}">
+        <a th:href="@{'/car/' + ${car.id}}">
+            <p><strong>Marca:</strong> <span th:text="${car.brand.name}"></span></p>
+            <p><strong>Modello:</strong> <span th:text="${car.model.name}"></span></p>
+            <p><strong>Prezzo:</strong> <span th:text="${car.price}"></span> euro</p>
+        </a>
+    </li>
+</ul>
 </body>
 
 </html>

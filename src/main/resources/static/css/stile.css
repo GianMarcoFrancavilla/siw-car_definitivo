@@ -77,13 +77,14 @@ html, body {
 
 /* Stili per gli elementi testuali */
 h1, h2, h3, h4, p, a, span {
-    color: #333;
-    padding-left: 5px;
+    color: rgb(254, 255, 255);
     text-decoration: none;
+   font-family: Helvetica, Arial, sans-serif;
+   font-weight: bold;
 }
 
 a:hover {
-    text-decoration: underline;
+    text-decoration: none;
 }
 
 label {
@@ -209,6 +210,10 @@ header {
     font-family: Arial, sans-serif;
 }
 
+        .spaced-lines {
+            line-height: 1.5; /* Modifica questo valore per aumentare o diminuire la spaziatura */
+        }
+
 /* Aggiungi questo al CSS principale */
 /* Stili per il testo */
 h1,
@@ -271,6 +276,48 @@ body a:not(header a) {
     padding: 20px;
     margin: 20px auto;
     max-width: 600px;
+}
+
+        ul li {
+            margin-bottom: 20px;  /* Modifica questo valore a seconda delle tue esigenze */
+        }
+
+        /* Stili per l'elenco delle auto */
+        .car-list {
+            display: flex;
+            flex-wrap: wrap;
+            list-style-type: none;
+            padding: 0;
+            justify-content: space-around; /* Allinea le auto al centro della riga */
+        }
+
+        .car-details {
+            margin-top: 10px;
+        }
+        
+.car-item {
+    width: 200px; /* Larghezza di ogni auto */
+    margin: 10px;
+    padding: 10px;
+    border-radius: 10px;
+    text-align: center;
+     /* Aggiungi un'animazione al cambio di colore dello sfondo */
+}
+.car-list a{
+	transition: background-color 0.3s;
+}
+
+.car-list a:hover {
+	
+    background-color: rgb(0, 0, 0); /* Cambia il colore dello sfondo al passaggio del mouse */
+}
+
+.car-item a {
+    text-decoration: none; /* Rimuovi il sottolineato dai link */
+}
+
+.car-item p {
+    margin: 5px 0; /* Aggiungi un piccolo spazio tra i paragrafi */
 }
 
 

@@ -37,22 +37,31 @@
     <a href="/filterPage">Filtra</a>
 
     <div th:if="${cars == null or cars.isEmpty()}"> <p>Non ci sono auto vendute</p></div>
-    <ul>
-        <li th:each="car : ${cars}" id="carItem">
-                <a th:href="@{'/car/' + ${car.id}}"
-                    th:text="' Marca: ' + ${car.brand.name} + '  Modello: ' + ${car.model.name} + '  Targa: ' + ${car.licensePlate}">Up! (2000)</a>
-<th:block th:if="${currentUser != null and currentUser.isPresent() and currentUser.get().user.id == car.owner.id}">
-      <th:block th:if="${car.review == null}">
+    <ul class="car-list">
+    <li th:each="car : ${cars}">
+        <a th:href="@{'/car/' + ${car.id}}">
+            <p><strong>Marca:</strong> <span th:text="${car.brand.name}"></span></p>
+            <p><strong>Modello:</strong> <span th:text="${car.model.name}"></span></p>
+            <p><strong>Valutazione:</strong>
+                <span th:if="${car.review != null}">
+                    <span th:text="${car.review.rating}"></span> stelle
+                </span>
+                <span th:unless="${car.review != null}">non disponibile</span>
+            </p>
+        </a>
+        <th:block th:if="${currentUser != null and currentUser.isPresent() and currentUser.get().user.id == car.owner.id}">
+            <th:block th:if="${car.review == null}">
                 <a th:href="@{'/writeReview?carId=' + ${car.id}}">Scrivi recensione</a>
             </th:block>
-
             <th:block th:if="${car.review != null}">
-                <!-- Aggiungi link per eliminare e modificare solo se c'è una recensione -->
-               <a th:href="@{'/deleteReview/' + ${car.review.id}}">Elimina recensione</a>
-                <a th:href="@{'/editReview/' + ${car.review.id}}">Modifica recensione</a>
+                <!-- Aggiungi link per eliminare e modificare solo se l'utente è il proprietario della recensione -->
+                <th:block th:if="${currentUser.get().user.id == car.review.user.id}">
+                    <a th:href="@{'/deleteReview/' + ${car.review.id}}">Elimina recensione</a>
+                    <a th:href="@{'/editReview/' + ${car.review.id}}">Modifica recensione</a>
+                </th:block>
             </th:block>
-</th:block>
-        </li>
-    </ul>
+        </th:block>
+    </li>
+</ul>
 </body>
 </html>
